@@ -303,7 +303,7 @@ function newSlide(type){
   else { s.title = DEF.title; s.body = DEF.body; }
   return s;
 }
-var slides = [ newSlide('intro'), newSlide('text'), newSlide('text') ];
+var slides = [ newSlide('intro'), newSlide('text') ];
 var cur = 0;
 function S(){ return slides[cur]; }
 
@@ -1025,7 +1025,7 @@ function snapExtra(){ return {}; }
 function restoreExtra(){}
 
 var APPID = 'AC_CARROUSEL_NARRATIF';
-function freshSlides(){ return [ newSlide('intro'), newSlide('text'), newSlide('text') ]; }
+function freshSlides(){ return [ newSlide('intro'), newSlide('text') ]; }
 function resetExtra(){}
 /* ---------- Projet : enregistrer / ouvrir un fichier .carrousel, sauvegarde automatique, nouveau ---------- */
 /* les photos sont gardées réduites (fond 2560 px, affiche 1200 px de côté max, JPG 90 %) */
