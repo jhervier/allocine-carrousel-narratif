@@ -284,7 +284,7 @@ details.fold>summary:hover{color:var(--fg)}
     <!-- type de slide : le choix le plus structurant, tout en haut -->
     <div class="sec" id="typeSec">
       <div class="typesw" id="typeSw" role="group" aria-label="Type de slide" hidden>
-        <button type="button" id="tText" aria-pressed="true" title="Slide texte"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h10" stroke-width="2.2"/><path d="M3 8.5h10M3 12h7"/></svg>Texte</button>
+        <button type="button" id="tText" aria-pressed="true" title="Slide texte"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h10M3 8h10M3 12h7" stroke-width="2"/></svg>Texte</button>
         <button type="button" id="tQuote" aria-pressed="false" title="Slide citation"><svg viewBox="0 0 14 14" width="15" height="15" aria-hidden="true"><path fill="currentColor" d="M1.5 8.6C1.5 5.9 2.9 4 5.3 3.2l.5 1.1C4.4 5 3.8 5.9 3.7 7H5.9v4.3H1.5zm6.6 0c0-2.7 1.4-4.6 3.8-5.4l.5 1.1C11 5 10.4 5.9 10.3 7h2.2v4.3H8.1z"/></svg>Citation</button>
         <button type="button" id="tSplit" aria-pressed="false" title="Deux photos côte à côte"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="2.5" width="11" height="11" rx="1.5"/><path d="M2.5 8h11"/></svg>Split</button>
       </div>
@@ -1198,7 +1198,7 @@ function buildStrip(){
         : s.type === 'split'   /* deux cases, dans le sens choisi */
           ? '<rect x="1.5" y="1.5" width="11" height="11" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="' + (s.orient === 'v' ? 'M7 1.5v11' : 'M1.5 7h11') + '" stroke="currentColor" stroke-width="1.6"/>'
           /* texte : un titre épais et deux lignes */
-          : '<path d="M1.5 3h11" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M1.5 7.5h11M1.5 11h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>'
+          : '<path d="M2 3h10M2 7h10M2 11h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>'
       ) + '</svg>';
       b.appendChild(q);
     }
