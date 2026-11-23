@@ -78,7 +78,10 @@ svg{display:block;flex:0 0 auto}
 .add span{font-size:22px;line-height:1;color:var(--accent)}
 .add:hover{border-color:var(--accent);color:var(--fg);background:var(--bg)}
 .slidebar{display:flex;gap:2px;align-items:center}
-.slidebar .count{margin-left:auto;color:var(--muted);font-size:13px;font-variant-numeric:tabular-nums}
+/* type et position de la slide affichée : dans la barre, plus sur l'aperçu */
+.slideinfo{margin-left:auto;display:flex;align-items:baseline;gap:8px;padding-right:4px;white-space:nowrap;font-size:13px}
+.slideinfo #badge{color:var(--fg);font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-size:12px}
+.slidebar .count{color:var(--muted);font-variant-numeric:tabular-nums}
 details.help{position:relative}
 details.help summary{list-style:none;cursor:pointer;color:var(--muted);width:34px;height:34px;display:flex;align-items:center;justify-content:center;border-radius:6px}
 details.help summary::-webkit-details-marker{display:none}
@@ -259,7 +262,6 @@ details.fold>summary:hover{color:var(--fg)}
   <section class="stage" aria-label="Aperçu">
     <div class="canvas-wrap" id="wrap">
       <canvas id="cv" width="1080" height="1440" aria-label="Aperçu de la slide"></canvas>
-      <span class="badge" id="badge">Slide 1 · Intro</span>
       <div class="drop" id="drop"><div><strong>Glisse une image ici</strong>ou colle-la (Ctrl+V)</div></div>
       <div class="hzone" id="hzone" hidden></div>
     </div>
@@ -276,7 +278,7 @@ details.fold>summary:hover{color:var(--fg)}
           <p style="margin:0"><b>Ctrl+Z</b> annuler · <b>Ctrl+Maj+Z</b> rétablir</p>
         </div>
       </details>
-      <span class="count" id="count">3 / 20</span>
+      <span class="slideinfo"><span id="badge">Intro</span><span class="count" id="count" title="20 slides maximum">1 / 1</span></span>
     </div>
   </section>
 
@@ -1210,7 +1212,7 @@ function buildStrip(){
   a.title = 'Ajouter une slide (Inser ou Alt+N)';
   a.addEventListener('click', addSlide);
   st.appendChild(a);
-  $('count').textContent = slides.length + ' / ' + MAX;
+  $('count').textContent = (cur + 1) + ' / ' + slides.length;   /* position de la slide affichée */
   var intro = S().type === 'intro';
   $('moveL').disabled = intro || cur <= 1;
   $('moveR').disabled = intro || cur >= slides.length - 1;
@@ -1238,7 +1240,7 @@ function loadPanel(){
   $('copyField').hidden = split;   /* le splitscreen a un copyright par photo */
   $('orientSw').hidden = !split;
   NOTE = quote ? NOTE_QUOTE : split ? NOTE_SPLIT : NOTE_TEXT;
-  $('badge').textContent = 'Slide ' + n + (intro ? ' · Intro' : quote ? ' · Citation' : split ? ' · Splitscreen' : ' · Texte');
+  $('badge').textContent = intro ? 'Intro' : quote ? 'Citation' : split ? 'Splitscreen' : 'Texte';
   if (split){
     $('s1').innerHTML = s.s1; $('s2').innerHTML = s.s2; ok.s1 = s.s1; ok.s2 = s.s2;
     $('cp1').value = s.cp1; $('cp2').value = s.cp2; ok.cp1 = s.cp1; ok.cp2 = s.cp2;
@@ -2045,7 +2047,7 @@ miniCx.imageSmoothingQuality = 'high';   /* réduction 1080 → 270 px : texte p
 function syncMini(){
   if (!miniOn) return;   /* barre cachée : rien à recopier (le recadrage reste fluide) */
   miniCx.drawImage(cv, 0, 0, 270, 360);
-  $('miniLbl').textContent = $('badge').textContent;
+  $('miniLbl').textContent = 'Slide ' + (cur + 1) + ' · ' + $('badge').textContent;
   $('miniPos').textContent = (cur + 1) + ' / ' + slides.length;
   $('miniPrev').disabled = cur <= 0;
   $('miniNext').disabled = cur >= slides.length - 1;
